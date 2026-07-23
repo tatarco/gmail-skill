@@ -78,9 +78,11 @@ you leave this thing switched on.
 
 ## Worked example: online flight check-in, end to end
 
+![The flow: Gmail API skill and Chrome extension handing off to each other through an online flight check-in](flow.png)
+
 The task: check two elderly relatives in for their flight — El Al, Zagreb → Tel Aviv,
 one of them travelling with wheelchair assistance. The booking confirmation was somewhere in
-a mailbox with tens of thousands of messages.
+a very full mailbox.
 
 Neither tool can do this alone. Gmail has the booking reference and cannot open a check-in
 form; the browser can drive the form and has no idea what the booking reference is.
@@ -117,17 +119,24 @@ software does not get bored.
 ## Other things the same seven commands cover
 
 The command set is small on purpose. Almost every real request decomposes into
-search → read → (download | draft):
+`search → read → (download | draft)`. Things this has actually been used for:
 
-- **"Find the invoice from the freight forwarder and file it."** `search has:attachment
-  from:...` → `download` → hand the PDF to whatever does the bookkeeping.
-- **"Did they ever answer?"** `search` a thread, `read` the last message, `draft` the chase.
-- **"Reply to this in Hebrew/Croatian."** Body written to a file, `--body-file` — no shell
-  quoting nightmare, no mangled UTF-8, no RTL surprises.
-- **"Watch for their reply and ping me."** `search ... is:unread newer_than:1d` on a cron or
-  a loop, and a notification when it hits.
-- **Inbox triage.** `search`, then `label --remove INBOX` on the noise, `--add STARRED` on
-  what needs a human.
+- **Pay a bill from the PDF that arrived.** `search` the e-invoice, `read` it, pull IBAN +
+  amount + payment reference out of the body, generate the payment barcode, `draft` the
+  reply — in the recipient's language, via `--body-file`, no shell-quoting or UTF-8 damage.
+- **File a supplier invoice.** `search has:attachment from:<supplier>` → `download` →
+  hand the PDF to the bookkeeping side. The attachment lands at a path you chose, not in
+  `~/Downloads` under whatever the browser felt like calling it.
+- **Chase a claim until it moves.** A refund claim with a support desk that answers when it
+  answers: `search ... newer_than:1d` on a loop, `label --add` the ones already seen so
+  nothing is handled twice, and a push notification when the status actually changes.
+- **"Did they ever answer?"** `search` the thread, `read` the last message, `draft` the chase
+  in-thread with `--reply-to-msg`.
+- **Inbox triage.** `search`, then `label --remove INBOX` on the noise and `--add STARRED`
+  on what needs a human.
+
+The pattern underneath all of them: the mailbox stops being a place you visit and becomes
+a queryable data source that other tools can join against.
 
 ## Requirements
 
