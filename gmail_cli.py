@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Gmail CLI — review / draft / attach / send via the Gmail API.
+"""Gmail CLI - review / draft / attach / send via the Gmail API.
 
 Auth: OAuth desktop flow. Needs credentials.json (OAuth client) beside this
 file; token.json is created on first `auth` and auto-refreshes after.

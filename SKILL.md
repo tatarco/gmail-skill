@@ -13,12 +13,12 @@ All commands: `python3 ~/.claude/skills/gmail/gmail_cli.py <cmd>`.
 2. `python3 ~/.claude/skills/gmail/gmail_cli.py auth` → opens a browser once; user clicks Allow. Saves `token.json` (auto-refreshes after).
 
 ## Commands
-- `search "<gmail query>" [--max N]` — list matches (msgId, from, date, subject, snippet, labels). Query is normal Gmail search syntax, e.g. `from:airline.com`, `subject:invoice newer_than:2d`, `has:attachment`.
-- `read <msgId>` — headers + text body + attachment list (with attachmentIds).
-- `download <msgId> [--out DIR]` — save all attachments (default cwd).
-- `draft [--reply-to-msg <msgId>] --to a@b --cc c@d --subject "..." (--body "..."|--body-file f) [--attach f1,f2]` — create a draft. With `--reply-to-msg`, it threads the reply and auto-sets Re: subject/In-Reply-To (omit --to/--subject to inherit).
-- `send ...` — same flags as draft, OR `send --draft <draftId>` to send an existing draft.
-- `label <msgId> [--add L1,L2] [--remove L1,L2]` — e.g. `--remove UNREAD` (mark read), `--add STARRED`, `--remove INBOX` (archive).
+- `search "<gmail query>" [--max N]` - list matches (msgId, from, date, subject, snippet, labels). Query is normal Gmail search syntax, e.g. `from:airline.com`, `subject:invoice newer_than:2d`, `has:attachment`.
+- `read <msgId>` - headers + text body + attachment list (with attachmentIds).
+- `download <msgId> [--out DIR]` - save all attachments (default cwd).
+- `draft [--reply-to-msg <msgId>] --to a@b --cc c@d --subject "..." (--body "..."|--body-file f) [--attach f1,f2]` - create a draft. With `--reply-to-msg`, it threads the reply and auto-sets Re: subject/In-Reply-To (omit --to/--subject to inherit).
+- `send ...` - same flags as draft, OR `send --draft <draftId>` to send an existing draft.
+- `label <msgId> [--add L1,L2] [--remove L1,L2]` - e.g. `--remove UNREAD` (mark read), `--add STARRED`, `--remove INBOX` (archive).
 
 ## Conventions
 - **Default to `draft`, not `send`.** Prepare the email and let the user review and hit send, or explicitly ask before sending. Nothing leaves the mailbox without a human OK.
@@ -26,4 +26,4 @@ All commands: `python3 ~/.claude/skills/gmail/gmail_cli.py <cmd>`.
 - To reply within a thread, pass the target `--reply-to-msg <msgId>` (get the msgId from `search`).
 
 ## Scopes
-`gmail.modify` (read/search/draft/labels) + `gmail.send`. No permanent-delete scope — the agent cannot destroy mail.
+`gmail.modify` (read/search/draft/labels) + `gmail.send`. No permanent-delete scope - the agent cannot destroy mail.

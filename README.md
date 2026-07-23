@@ -29,7 +29,7 @@ attachment bytes to a path you chose. `draft --reply-to-msg <id>` sets `In-Reply
 thread instead of starting a new one.
 
 **Where the browser is still the right tool: everywhere that isn't email.** The interesting
-work happens when you combine the two — see the worked example below.
+work happens when you combine the two - see the worked example below.
 
 ## Install
 
@@ -49,7 +49,7 @@ python3 gmail_cli.py auth
 One browser consent screen, once. `token.json` is written beside the script with mode 600
 and auto-refreshes from then on.
 
-As a **Claude Code skill**, that clone path is all it takes — [SKILL.md](SKILL.md) is the
+As a **Claude Code skill**, that clone path is all it takes - [SKILL.md](SKILL.md) is the
 frontmatter file Claude reads to know when and how to use it. Not using Claude Code? It is
 still just a CLI; point any agent at `gmail_cli.py --help`.
 
@@ -70,7 +70,7 @@ still just a CLI; point any agent at `gmail_cli.py --help`.
 `gmail.modify` + `gmail.send`. **No permanent-delete scope is requested.** The worst a bad
 instruction can do is archive something. Revoke any time at
 [myaccount.google.com/permissions](https://myaccount.google.com/permissions) and delete
-`token.json` — that is the entire kill switch.
+`token.json` - that is the entire kill switch.
 
 The skill's own convention (see [SKILL.md](SKILL.md)) is **default to `draft`, never `send`**.
 The agent composes; a human reads it and hits send. Cheap rule, and it is the one that lets
@@ -80,7 +80,7 @@ you leave this thing switched on.
 
 ![The flow: Gmail API skill and Chrome extension handing off to each other through an online flight check-in](flow.png)
 
-The task: check two elderly relatives in for their flight — El Al, Zagreb → Tel Aviv,
+The task: check two elderly relatives in for their flight - El Al, Zagreb → Tel Aviv,
 one of them travelling with wheelchair assistance. The booking confirmation was somewhere in
 a very full mailbox.
 
@@ -100,14 +100,14 @@ form; the browser can drive the form and has no idea what the booking reference 
 ```
 
 Steps 1, 2, 5, 6 and 7 are this CLI. Steps 3 and 4 are the browser. The handoff between them
-is just text the agent carried across — and that handoff is the whole point.
+is just text the agent carried across - and that handoff is the whole point.
 
 What the run actually surfaced, which is the part that argues for doing it this way:
 
 - The departure time in the booking email (23:30) did **not** match the check-in system
   (23:50). Two sources, compared, discrepancy caught.
 - One boarding pass came back with a **blank seat field** while the other had a seat.
-- The wheelchair-assistance flag did **not** appear on the boarding pass at all — which is
+- The wheelchair-assistance flag did **not** appear on the boarding pass at all - which is
   exactly the thing you want to discover the day before, not at the gate. Hence step 7:
   a threaded reply to the airport's assistance desk, drafted for review, asking them to
   confirm.
@@ -123,7 +123,7 @@ The command set is small on purpose. Almost every real request decomposes into
 
 - **Pay a bill from the PDF that arrived.** `search` the e-invoice, `read` it, pull IBAN +
   amount + payment reference out of the body, generate the payment barcode, `draft` the
-  reply — in the recipient's language, via `--body-file`, no shell-quoting or UTF-8 damage.
+  reply - in the recipient's language, via `--body-file`, no shell-quoting or UTF-8 damage.
 - **File a supplier invoice.** `search has:attachment from:<supplier>` → `download` →
   hand the PDF to the bookkeeping side. The attachment lands at a path you chose, not in
   `~/Downloads` under whatever the browser felt like calling it.
@@ -153,7 +153,7 @@ google-auth-httplib2
 | File | |
 |---|---|
 | `gmail_cli.py` | The whole thing |
-| `SKILL.md` | Claude Code skill definition — when to use it, conventions |
+| `SKILL.md` | Claude Code skill definition - when to use it, conventions |
 | `SETUP.md` | Google Cloud OAuth walkthrough + troubleshooting |
 | `credentials.json` | **Yours. Never committed.** OAuth Desktop client from Google Cloud |
 | `token.json` | **Yours. Never committed.** Written by `auth`, mode 600, auto-refreshes |
